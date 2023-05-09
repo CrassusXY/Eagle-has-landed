@@ -1,7 +1,14 @@
 <RCC>
     <qresource prefix="/new/prefix1">
-        <file>background.png</file>
-        <file>backgroundGame.png</file>
+        <file>pic/background.png</file>
+        <file>pic/backgroundGame.png</file>
+        <file>pic/EngineOn1.png</file>
+        <file>pic/EngineOn2.png</file>
+        <file>pic/EngineOn3.png</file>
+        <file>pic/EngineOn4.png</file>
+        <file>pic/lander.png</file>
+        <file>pic/greenled.png</file>
+        <file>pic/redled.png</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>
