@@ -63,7 +63,7 @@
        <string notr="true">border-image: transparent;</string>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page_3">
        <property name="sizePolicy">
@@ -184,7 +184,7 @@ color: white;</string>
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="connectButton">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -364,7 +364,7 @@ color: white;</string>
              <widget class="QLabel" name="Height">
               <property name="styleSheet">
                <string notr="true">color: green; 
-font: 9pt &quot;RomanD&quot;;</string>
+font: 12pt &quot;RomanD&quot;;</string>
               </property>
               <property name="text">
                <string>Wynik: 2143</string>
@@ -409,7 +409,7 @@ font: 9pt &quot;RomanD&quot;;</string>
                <widget class="QLabel" name="label_6">
                 <property name="styleSheet">
                  <string notr="true">color: green; 
-font: 9pt &quot;RomanD&quot;;</string>
+font: 12pt &quot;RomanD&quot;;</string>
                 </property>
                 <property name="text">
                  <string>Kontroler</string>
@@ -492,7 +492,7 @@ font: 9pt &quot;RomanD&quot;;</string>
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="testButton">
+               <widget class="QPushButton" name="menuButton">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -536,7 +536,7 @@ color: white;</string>
              <widget class="QLabel" name="VerticalVel">
               <property name="styleSheet">
                <string notr="true">color: green; 
-font: 9pt &quot;RomanD&quot;;</string>
+font: 12pt &quot;RomanD&quot;;</string>
               </property>
               <property name="text">
                <string>Pion: </string>
@@ -547,7 +547,7 @@ font: 9pt &quot;RomanD&quot;;</string>
              <widget class="QLabel" name="HorizontalVel">
               <property name="styleSheet">
                <string notr="true">color: green; 
-font: 9pt &quot;RomanD&quot;;</string>
+font: 12pt &quot;RomanD&quot;;</string>
               </property>
               <property name="text">
                <string>Poziom:</string>
@@ -580,7 +580,7 @@ font: 9pt &quot;RomanD&quot;;</string>
                <widget class="QLabel" name="label_7">
                 <property name="styleSheet">
                  <string notr="true">color: green; 
-font: 9pt &quot;RomanD&quot;;</string>
+font: 12pt &quot;RomanD&quot;;</string>
                 </property>
                 <property name="text">
                  <string>Silnik</string>

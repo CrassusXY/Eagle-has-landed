@@ -9,6 +9,7 @@
         <file>pic/lander.png</file>
         <file>pic/greenled.png</file>
         <file>pic/redled.png</file>
+        <file>pic/icon.png</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>

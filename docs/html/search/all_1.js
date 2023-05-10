@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['data_5fready_0',['data_ready',['../class_main_window.html#ae2c21294a9b2c5f0bc3b7408227304cd',1,'MainWindow']]]
+  ['eagle_2dhas_2dlanded_0',['Eagle-has-landed',['../md__r_e_a_d_m_e.html',1,'']]],
+  ['end_5fconnection_1',['end_Connection',['../class_main_window.html#a005b2e39cfee344a079833dbb3745eb5',1,'MainWindow']]]
 ];

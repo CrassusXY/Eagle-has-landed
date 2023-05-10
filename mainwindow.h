@@ -28,13 +28,18 @@ public:
 
 private slots:
     void on_startButton_clicked();
-    void on_exitButton_clicked();
-    void on_testButton_clicked();
-    void read_Port();
-    void ConnectControler();
+    void on_connectButton_clicked();
     void on_devButton_clicked();
+    void on_exitButton_clicked();
+    void on_menuButton_clicked();
+
+    void ConnectControler();
+    void read_Port();
+    void end_Connection();
+
 
 private:
+    int count;
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
     QGraphicsPixmapItem *lander;
