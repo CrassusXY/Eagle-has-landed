@@ -14,6 +14,8 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS SerialPort)
 
 set(PROJECT_SOURCES
+        lander.cpp
+        lander.h
         main.cpp
         mainwindow.cpp
         mainwindow.h

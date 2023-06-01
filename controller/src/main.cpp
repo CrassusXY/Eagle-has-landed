@@ -34,7 +34,7 @@ void loop(){
   float acc[3] = {0.0, 0.0, 0.0};
   float tmp[3] = {0.0, 0.0, 0.0};
 
-  if (millis() - historic > 100){
+  if (millis() - historic > 10){
     bmi160.getAccelGyroData(accG);
 
     //raw gyro to angles

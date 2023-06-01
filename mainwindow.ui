@@ -63,7 +63,7 @@
        <string notr="true">border-image: transparent;</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_3">
        <property name="sizePolicy">
@@ -361,15 +361,33 @@ color: white;</string>
              <number>0</number>
             </property>
             <item>
-             <widget class="QLabel" name="Height">
-              <property name="styleSheet">
-               <string notr="true">color: green; 
+             <layout class="QHBoxLayout" name="horizontalLayout_12">
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="Height">
+                <property name="styleSheet">
+                 <string notr="true">color: green; 
 font: 12pt &quot;RomanD&quot;;</string>
-              </property>
-              <property name="text">
-               <string>Wynik: 2143</string>
-              </property>
-             </widget>
+                </property>
+                <property name="text">
+                 <string>Wynik: </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="ScoreLabel">
+                <property name="styleSheet">
+                 <string notr="true">color: green; 
+font: 12pt &quot;RomanD&quot;;</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_9">
@@ -533,26 +551,62 @@ color: white;</string>
              <number>0</number>
             </property>
             <item>
-             <widget class="QLabel" name="VerticalVel">
-              <property name="styleSheet">
-               <string notr="true">color: green; 
+             <layout class="QHBoxLayout" name="horizontalLayout_13">
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="VerticalVel">
+                <property name="styleSheet">
+                 <string notr="true">color: green; 
 font: 12pt &quot;RomanD&quot;;</string>
-              </property>
-              <property name="text">
-               <string>Pion: </string>
-              </property>
-             </widget>
+                </property>
+                <property name="text">
+                 <string>Pion: </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="VVelLabel">
+                <property name="styleSheet">
+                 <string notr="true">color: green; 
+font: 12pt &quot;RomanD&quot;;</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
             <item>
-             <widget class="QLabel" name="HorizontalVel">
-              <property name="styleSheet">
-               <string notr="true">color: green; 
+             <layout class="QHBoxLayout" name="horizontalLayout_14">
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="HorizontalVel">
+                <property name="styleSheet">
+                 <string notr="true">color: green; 
 font: 12pt &quot;RomanD&quot;;</string>
-              </property>
-              <property name="text">
-               <string>Poziom:</string>
-              </property>
-             </widget>
+                </property>
+                <property name="text">
+                 <string>Poziom:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="HVelLabel">
+                <property name="styleSheet">
+                 <string notr="true">color: green; 
+font: 12pt &quot;RomanD&quot;;</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_10">

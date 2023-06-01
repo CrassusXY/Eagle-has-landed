@@ -29,15 +29,16 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Scene setup
     scene = new QGraphicsScene(ui->page_4);
-    lander = new QGraphicsPixmapItem(QPixmap(":/new/prefix1/pic/lander.png"));
-    lander->setScale(.1);
-    lander->setTransformOriginPoint(285, 267);
-    scene->addItem(lander);
+    eagle = lander();
+    scene->addItem(eagle.get_eagle());
     ui->viewer->setScene(scene);
-
+    game_start = false;
 
     ConnectControler();
     ui->EngineStatus->setPixmap(QPixmap(":/new/prefix1/pic/redled.png").scaled(15,15,Qt::KeepAspectRatio));
+
+    ui->VVelLabel->setText(QString::number(eagle.get_velY(), 'd', 2));
+    ui->HVelLabel->setText(QString::number(eagle.get_velX(), 'd', 2));
 
     //Signals
     connect(controller, &QSerialPort::readyRead, this, &MainWindow::read_Port);
@@ -116,54 +117,45 @@ void MainWindow::read_Port()
 
         // Process the packet if one is ready
         if (data_ready) {
-            qDebug() << "Paczka: "  << controller_data;
+            //qDebug() << "Paczka: "  << controller_data;
             ui->serialPortPrinter->append(controller_data);
-            if (controller_data.at(2) == '1'){
+            if (controller_data.at(2) == '1') {
                 ui->serialPortPrinter->append("Pauza!\n");
-                on_menuButton_clicked();
+                on_menuButton_clicked();  
             }
-            if (controller_data.at(4) == '1'){
+            if (controller_data.at(4) == '1') {
                 ui->serialPortPrinter->append("Silnik włączony!\n");
                 on_startButton_clicked();
+
+                eagle.set_engine(true);
+                scene->removeItem(eagle.get_eagle());
+                eagle.set_PixMap(":/new/prefix1/pic/EngineOn1.png");
+                scene->addItem(eagle.get_eagle());
+                ui->EngineStatus->setPixmap(QPixmap(":/new/prefix1/pic/greenled.png").scaled(15,15,Qt::KeepAspectRatio));
             }
+            else if (controller_data.at(4) == '0') {
+                eagle.set_engine(false);
+                scene->removeItem(eagle.get_eagle());
+                eagle.set_PixMap(":/new/prefix1/pic/lander.png");
+                scene->addItem(eagle.get_eagle());
+                ui->EngineStatus->setPixmap(QPixmap(":/new/prefix1/pic/greenled.png").scaled(15,15,Qt::KeepAspectRatio));
+            }
+
             // Parse the remaining characters as a float and use it to rotate the lander sprite
             float r = controller_data.mid(6).toFloat();
-
-            // Lander sprite animation
-            count++;
-            if(count%5) {
-                scene->removeItem(lander);
-                lander = new QGraphicsPixmapItem(QPixmap(":/new/prefix1/pic/lander.png"));
-                lander->setScale(.1);
-                lander->setTransformOriginPoint(285, 267);
-                scene->addItem(lander);
-            }
-            else if(count%4) {
-                scene->removeItem(lander);
-                lander = new QGraphicsPixmapItem(QPixmap(":/new/prefix1/pic/EngineOn2.png"));
-                lander->setScale(.1);
-                lander->setTransformOriginPoint(285, 267);
-                scene->addItem(lander);
-            }
-            else if(count%3) {
-                scene->removeItem(lander);
-                lander = new QGraphicsPixmapItem(QPixmap(":/new/prefix1/pic/lander.png"));
-                lander->setScale(.1);
-                lander->setTransformOriginPoint(285, 267);
-                scene->addItem(lander);
-            }
-            else if(count%2) {
-                scene->removeItem(lander);
-                lander = new QGraphicsPixmapItem(QPixmap(":/new/prefix1/pic/EngineOn3.png"));
-                lander->setScale(.1);
-                lander->setTransformOriginPoint(285, 267);
-                scene->addItem(lander);
-            }
             if(r > 90)
                 r = 90;
             else if(r < -90)
                 r = -90;
-            lander->setRotation(r);
+
+            if(game_start) {
+                eagle.set_rot(-r);
+                eagle.tick();
+                ui->VVelLabel->setText(QString::number(eagle.get_velY(), 'd', 2));
+                ui->HVelLabel->setText(QString::number(eagle.get_velX(), 'd', 2));
+                //qDebug()  << eagle.get_velX() << ", " << eagle.get_velY() << "\n";
+                //qDebug()  << r << ", " <<((cos(r * M_PI / 180) * ENGINE_ACC ) - MOON_ACC) << ", " << sin(r*M_PI/180) << "\n";
+            }
             controller_data = "";
             data_ready = false;
         }
@@ -188,6 +180,7 @@ void MainWindow::end_Connection()
  */
 void MainWindow::on_startButton_clicked()
 {
+    game_start = true;
     ui->centralwidget->setStyleSheet("border-image: url(:/new/prefix1/pic/backgroundGame.png);");
     ui->stackedWidget->setCurrentWidget(ui->page_4);
     //    if(!controller->isOpen()){
@@ -246,5 +239,6 @@ void MainWindow::on_menuButton_clicked()
     ui->centralwidget->setStyleSheet("border-image: url(:/new/prefix1/pic/background.png);");
     ui->stackedWidget->setCurrentWidget(ui->page_3);
     ui->serialPortPrinter->hide();
+    game_start = false;
 }
 
