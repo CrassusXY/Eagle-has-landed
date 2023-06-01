@@ -10,6 +10,8 @@
         <file>pic/greenled.png</file>
         <file>pic/redled.png</file>
         <file>pic/icon.png</file>
+        <file>pic/crashed.png</file>
+        <file>pic/landed.png</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>

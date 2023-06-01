@@ -4,21 +4,26 @@
 lander::lander()
 {
     eagle = new QGraphicsPixmapItem(QPixmap(":/new/prefix1/pic/lander.png"));
-    eagle->setScale(.1);
-    eagle->setTransformOriginPoint(285, 267);
+    eagle->setScale(.08);
+    eagle->setTransformOriginPoint(410, 410);
     velX = 0;
-    velY = 0;
+    velY = 80;
+    fuel = 1000;
+    landed = false;
 }
 
 void lander::set_PixMap(const QString tmp)
 {
+    if(landed)
+        return;
+
     QPointF pos = eagle->pos();
-    pos.setX(pos.x());
-    pos.setY(pos.y());
+    int r = eagle->rotation();
     eagle = new QGraphicsPixmapItem(QPixmap(tmp));
     eagle->setPos(pos);
-    eagle->setScale(.1);
-    eagle->setTransformOriginPoint(285, 267);
+    eagle->setScale(.08);
+    eagle->setRotation(r);
+    eagle->setTransformOriginPoint(410, 410);
 }
 
 QGraphicsPixmapItem* lander::get_eagle()
@@ -28,30 +33,47 @@ QGraphicsPixmapItem* lander::get_eagle()
 
 void lander::set_rot(float _rot)
 {
-    rot = 0.8 * rot + 0.2 * _rot;
+    rot =  _rot;
 }
-
 
 void lander::set_engine(bool _engine)
 {
     engine = _engine;
 }
 
+bool lander::get_engine()
+{
+    return engine;
+}
+
+int lander::get_fuel()
+{
+    return fuel;
+}
+
 void lander::tick()
 {
     QPointF pos = eagle->pos();
 
-    if(!engine) {
+    if(landed)
+        return;
+
+    if(!engine || fuel == 0) {
         //velX = velX
         velY += MOON_ACC * DT;
     }
     else {
+
         velX += (sin(rot * M_PI / 180) * ENGINE_ACC) * DT;
         velY -= ((cos(rot * M_PI / 180) * ENGINE_ACC ) - MOON_ACC ) * DT;
+        fuel -= 0.01;
     }
 
     pos.setX(pos.x() + velX * DT);
     pos.setY(pos.y() + velY * DT);
     eagle->setPos(pos);
     eagle->setRotation(rot);
+
+    if( abs(pos.y() - 480) < 1)
+        landed = true;
 }

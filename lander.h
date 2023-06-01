@@ -19,13 +19,18 @@ public:
     QGraphicsPixmapItem *get_eagle();
     void set_rot(float _rot);
     void set_engine(bool _engine);
+    bool get_engine();
     float get_velX(){return velX;};
     float get_velY(){return velY;};
+    int get_fuel();
+    bool get_landed(){return landed;};
 private:
     QGraphicsPixmapItem *eagle;
     int count;
+    int fuel;
     float velX, velY, rot;
     bool engine;
+    bool landed;
 };
 
 #endif // LANDER_H

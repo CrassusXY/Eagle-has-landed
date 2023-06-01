@@ -43,6 +43,7 @@ private:
     lander eagle;
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
+    QGraphicsPixmapItem *message;
     QSerialPort *controller;
     QString controller_data;
     bool data_ready = false;

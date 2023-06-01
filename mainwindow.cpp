@@ -123,22 +123,28 @@ void MainWindow::read_Port()
                 ui->serialPortPrinter->append("Pauza!\n");
                 on_menuButton_clicked();  
             }
-            if (controller_data.at(4) == '1') {
+            if (controller_data.at(4) == '1' && eagle.get_fuel() > 0) {
                 ui->serialPortPrinter->append("Silnik włączony!\n");
                 on_startButton_clicked();
 
-                eagle.set_engine(true);
-                scene->removeItem(eagle.get_eagle());
-                eagle.set_PixMap(":/new/prefix1/pic/EngineOn1.png");
-                scene->addItem(eagle.get_eagle());
                 ui->EngineStatus->setPixmap(QPixmap(":/new/prefix1/pic/greenled.png").scaled(15,15,Qt::KeepAspectRatio));
+
+                if(!eagle.get_engine()) {
+                    eagle.set_engine(true);
+                    scene->removeItem(eagle.get_eagle());
+                    eagle.set_PixMap(":/new/prefix1/pic/EngineOn1.png");
+                    scene->addItem(eagle.get_eagle());
+                }
             }
-            else if (controller_data.at(4) == '0') {
-                eagle.set_engine(false);
-                scene->removeItem(eagle.get_eagle());
-                eagle.set_PixMap(":/new/prefix1/pic/lander.png");
-                scene->addItem(eagle.get_eagle());
-                ui->EngineStatus->setPixmap(QPixmap(":/new/prefix1/pic/greenled.png").scaled(15,15,Qt::KeepAspectRatio));
+            else if (controller_data.at(4) == '0' || eagle.get_fuel() == 0) {
+                ui->EngineStatus->setPixmap(QPixmap(":/new/prefix1/pic/redled.png").scaled(15,15,Qt::KeepAspectRatio));
+
+                if(eagle.get_engine()) {
+                    eagle.set_engine(false);
+                    scene->removeItem(eagle.get_eagle());
+                    eagle.set_PixMap(":/new/prefix1/pic/lander.png");
+                    scene->addItem(eagle.get_eagle());
+                }
             }
 
             // Parse the remaining characters as a float and use it to rotate the lander sprite
@@ -153,7 +159,25 @@ void MainWindow::read_Port()
                 eagle.tick();
                 ui->VVelLabel->setText(QString::number(eagle.get_velY(), 'd', 2));
                 ui->HVelLabel->setText(QString::number(eagle.get_velX(), 'd', 2));
-                //qDebug()  << eagle.get_velX() << ", " << eagle.get_velY() << "\n";
+                ui->HeightBar->setValue(480 - eagle.get_eagle()->pos().y());
+                ui->FuelBar->setValue(eagle.get_fuel());
+                if(eagle.get_landed()) {
+                    if(eagle.get_velY() < 20) {
+                        message = new QGraphicsPixmapItem(QPixmap(":/new/prefix1/pic/landed.png"));
+                        QPointF pos = eagle.get_eagle()->pos();
+                        pos.setX(pos.x()-200);
+                        scene->addItem(message);
+                    }
+                    else {
+                        message = new QGraphicsPixmapItem(QPixmap(":/new/prefix1/pic/crashed.png"));
+                        QPointF pos = eagle.get_eagle()->pos();
+                        pos.setX(pos.x()-200);
+                        message->setPos(pos);
+                        scene->addItem(message);
+                    }
+
+                }
+                qDebug()  << eagle.get_velY() << "\n";
                 //qDebug()  << r << ", " <<((cos(r * M_PI / 180) * ENGINE_ACC ) - MOON_ACC) << ", " << sin(r*M_PI/180) << "\n";
             }
             controller_data = "";
