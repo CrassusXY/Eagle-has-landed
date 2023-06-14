@@ -12,6 +12,10 @@
 #include <QApplication>
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QtCharts/QSplineSeries>
+#include <QtCharts/QLegend>
+#include <QtCharts/QtCharts>
+#include <QChartView>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -38,6 +42,8 @@ private slots:
     void end_Connection();
 
 
+    void on_menuButton_2_clicked();
+
 private:
     bool game_start;
     lander eagle;
@@ -45,6 +51,13 @@ private:
     QGraphicsScene *scene;
     QGraphicsPixmapItem *message;
     QSerialPort *controller;
+    QSplineSeries *series;
+    QChartView *chartView;
+    QChart *chart;
+    QValueAxis *axisX;
+    QValueAxis *axisY;
+    QVBoxLayout *layout;
+    int axisXindex;
     QString controller_data;
     bool data_ready = false;
 };

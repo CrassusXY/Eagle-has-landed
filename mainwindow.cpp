@@ -20,12 +20,13 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle("Orzeł wylądował");
     setWindowIcon(QIcon(":/new/prefix1/pic/icon.png"));
 
+
     //Serial printer setup
-    ui->serialPortPrinter->viewport()->setAutoFillBackground(false);
-    ui->serialPortPrinter->setTextColor( QColor( "green" ) );
-    ui->serialPortPrinter->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->serialPortPrinter->setFrameStyle(QFrame::NoFrame);
-    ui->serialPortPrinter->hide();
+//    ui->serialPortPrinter->viewport()->setAutoFillBackground(false);
+//    ui->serialPortPrinter->setTextColor( QColor( "green" ) );
+//    ui->serialPortPrinter->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+//    ui->serialPortPrinter->setFrameStyle(QFrame::NoFrame);
+//    ui->serialPortPrinter->hide();
 
     //Scene setup
     scene = new QGraphicsScene(ui->page_4);
@@ -33,12 +34,36 @@ MainWindow::MainWindow(QWidget *parent)
     scene->addItem(eagle.get_eagle());
     ui->viewer->setScene(scene);
     game_start = false;
-
-    ConnectControler();
-    ui->EngineStatus->setPixmap(QPixmap(":/new/prefix1/pic/redled.png").scaled(15,15,Qt::KeepAspectRatio));
-
     ui->VVelLabel->setText(QString::number(eagle.get_velY(), 'd', 2));
     ui->HVelLabel->setText(QString::number(eagle.get_velX(), 'd', 2));
+
+    ui->EngineStatus->setPixmap(QPixmap(":/new/prefix1/pic/redled.png").scaled(15,15,Qt::KeepAspectRatio));
+    ConnectControler();
+
+    series = new QSplineSeries();
+    for (int i = 0; i < 100; ++i) {
+        series->append(i*DT, 0);
+    }
+    series->setColor(Qt::green);
+
+    chart = new QChart();
+    chart->legend()->hide();
+    chart->addSeries(series);
+    chart->createDefaultAxes();
+    chart->setBackgroundBrush((QBrush(QColor("transparent"))));
+
+    chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    layout = new QVBoxLayout(ui->horizontalFrame);
+    layout->addWidget(chartView);
+
+    //chartView->setParent(ui->horizontalFrame);
+
+    axisXindex = 0;
+    axisY = new QValueAxis;
+    axisY->setRange(-90, 90);
+    chartView->chart()->setAxisY(axisY, series);
+
 
     //Signals
     connect(controller, &QSerialPort::readyRead, this, &MainWindow::read_Port);
@@ -118,16 +143,16 @@ void MainWindow::read_Port()
         // Process the packet if one is ready
         if (data_ready) {
             //qDebug() << "Paczka: "  << controller_data;
-            ui->serialPortPrinter->append(controller_data);
+            //ui->serialPortPrinter->append(controller_data);
             if (controller_data.at(2) == '1') {
-                ui->serialPortPrinter->append("Pauza!\n");
+                //ui->serialPortPrinter->append("Pauza!\n");
                 on_menuButton_clicked();  
             }
             if (controller_data.at(4) == '1' && eagle.get_fuel() > 0) {
-                ui->serialPortPrinter->append("Silnik włączony!\n");
+                //ui->serialPortPrinter->append("Silnik włączony!\n");
                 on_startButton_clicked();
 
-                ui->EngineStatus->setPixmap(QPixmap(":/new/prefix1/pic/greenled.png").scaled(15,15,Qt::KeepAspectRatio));
+                //ui->EngineStatus->setPixmap(QPixmap(":/new/prefix1/pic/greenled.png").scaled(15,15,Qt::KeepAspectRatio));
 
                 if(!eagle.get_engine()) {
                     eagle.set_engine(true);
@@ -162,24 +187,31 @@ void MainWindow::read_Port()
                 ui->HeightBar->setValue(480 - eagle.get_eagle()->pos().y());
                 ui->FuelBar->setValue(eagle.get_fuel());
                 if(eagle.get_landed()) {
-                    if(eagle.get_velY() < 20) {
+                    QPointF pos = eagle.get_eagle()->pos();
+                    pos.setX(pos.x()-180);
+                    pos.setY(pos.y()-50);
+                    if(eagle.get_velY() < 20 && eagle.get_velX() < 20) {
                         message = new QGraphicsPixmapItem(QPixmap(":/new/prefix1/pic/landed.png"));
-                        QPointF pos = eagle.get_eagle()->pos();
-                        pos.setX(pos.x()-200);
-                        scene->addItem(message);
+                        pos.setX(pos.x()+15);
                     }
                     else {
                         message = new QGraphicsPixmapItem(QPixmap(":/new/prefix1/pic/crashed.png"));
-                        QPointF pos = eagle.get_eagle()->pos();
-                        pos.setX(pos.x()-200);
-                        message->setPos(pos);
-                        scene->addItem(message);
                     }
-
+                    message->setPos(pos);
+                    scene->addItem(message);
                 }
                 qDebug()  << eagle.get_velY() << "\n";
                 //qDebug()  << r << ", " <<((cos(r * M_PI / 180) * ENGINE_ACC ) - MOON_ACC) << ", " << sin(r*M_PI/180) << "\n";
             }
+
+            axisXindex++;
+
+            series->remove(0);
+            series->append((axisXindex + 100)*DT, r);
+            axisX = new QValueAxis;
+            axisX->setRange(axisXindex*DT, (axisXindex + 100)*DT);
+            chartView->chart()->setAxisX(axisX, series);
+
             controller_data = "";
             data_ready = false;
         }
@@ -238,8 +270,7 @@ void MainWindow::on_connectButton_clicked()
 void MainWindow::on_devButton_clicked()
 {
     ui->centralwidget->setStyleSheet("border-image: url(:/new/prefix1/pic/backgroundGame.png);");
-    ui->stackedWidget->setCurrentWidget(ui->page_4);
-    ui->serialPortPrinter->show();
+    ui->stackedWidget->setCurrentWidget(ui->page);
 }
 
 /**
@@ -262,7 +293,21 @@ void MainWindow::on_menuButton_clicked()
 {
     ui->centralwidget->setStyleSheet("border-image: url(:/new/prefix1/pic/background.png);");
     ui->stackedWidget->setCurrentWidget(ui->page_3);
-    ui->serialPortPrinter->hide();
+    //ui->serialPortPrinter->hide();
+    game_start = false;
+}
+
+/**
+ * @brief Handles the menuButton2 click event.
+ *
+ * This function sets the background image to the main menu background and switches to the main menu screen.
+ * It also hides the serial printer.
+ */
+void MainWindow::on_menuButton_2_clicked()
+{
+    ui->centralwidget->setStyleSheet("border-image: url(:/new/prefix1/pic/background.png);");
+    ui->stackedWidget->setCurrentWidget(ui->page_3);
+    //ui->serialPortPrinter->hide();
     game_start = false;
 }
 

@@ -4,7 +4,7 @@
 #include <QGraphicsPixmapItem>
 #include <QTransform>
 
-#define SCALER 10
+#define SCALER 20
 #define MOON_ACC SCALER*2.62
 #define ENGINE_ACC SCALER*4.5
 #define DT 0.01
@@ -12,6 +12,7 @@
 class lander
 {
 public:
+    int count = 0;
     lander();
     void set_PixMap(const QString tmp);
     void tick();
@@ -26,7 +27,6 @@ public:
     bool get_landed(){return landed;};
 private:
     QGraphicsPixmapItem *eagle;
-    int count;
     int fuel;
     float velX, velY, rot;
     bool engine;
