@@ -63,7 +63,7 @@
        <string notr="true">border-image: transparent;</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page">
        <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -224,6 +224,64 @@ color: white;</string>
             <property name="sizeHint" stdset="0">
              <size>
               <width>10</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_11">
+          <property name="topMargin">
+           <number>10</number>
+          </property>
+          <item>
+           <spacer name="horizontalSpacer_13">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-image: transparent;
+font: 9pt &quot;RomanD&quot;;
+background-color: rgb(0, 85, 0);
+color: white;</string>
+            </property>
+            <property name="text">
+             <string>Zmień język</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_14">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>
@@ -496,7 +554,7 @@ font: 12pt &quot;RomanD&quot;;</string>
                <widget class="QLabel" name="label_6">
                 <property name="styleSheet">
                  <string notr="true">color: green; 
-font: 12pt &quot;RomanD&quot;;</string>
+font: 700 12pt &quot;RomanD&quot;;</string>
                 </property>
                 <property name="text">
                  <string>Kontroler</string>
@@ -690,7 +748,7 @@ font: 12pt &quot;RomanD&quot;;</string>
                <widget class="QLabel" name="label_7">
                 <property name="styleSheet">
                  <string notr="true">color: green; 
-font: 12pt &quot;RomanD&quot;;</string>
+font: 700 12pt &quot;RomanD&quot;;</string>
                 </property>
                 <property name="text">
                  <string>Silnik</string>

@@ -1,0 +1,50 @@
+\hypertarget{lander_8h_source}{}\doxysection{lander.\+h}
+\mbox{\hyperlink{lander_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ LANDER\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ LANDER\_H}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QGraphicsPixmapItem>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QTransform>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ SCALER\ 20}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MOON\_ACC\ SCALER*2.62}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ ENGINE\_ACC\ SCALER*4.5}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ DT\ 0.01}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classlander}{lander}}}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classlander_a36f3cafd3e02298f5498f9496b1b3a96}{count}}\ =\ 0;}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{classlander_ad90447438348cd18fc11a1e5c535bcc7}{lander}}();}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classlander_a48a0364a45980dadc376c40304f56cf1}{set\_PixMap}}(\textcolor{keyword}{const}\ QString\ tmp);}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classlander_a29aa484e9b68aacac2168a94f66b5155}{tick}}();}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classlander_a64c7cf72984846f6429d81632431b78d}{render}}();}
+\DoxyCodeLine{00020\ \ \ \ \ QGraphicsPixmapItem\ *\mbox{\hyperlink{classlander_abfe6a195e0596d7c89a66808a417bd68}{get\_eagle}}();}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classlander_a8c2c64df94531652c90bf5876a158bf3}{set\_rot}}(\textcolor{keywordtype}{float}\ \_rot);}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classlander_af89cfdde4cc46ea7e4f8398139a5b7d0}{set\_engine}}(\textcolor{keywordtype}{bool}\ \_engine);}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classlander_a825c58d4bb641aed62ca0f96401f9cd0}{get\_engine}}();}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classlander_a6704caf7a3a0c77d646477ad938c1dee}{set\_score}}()\ \{\ score\ +=\ level\ *\ fuel;\ \}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classlander_a1a8e8ba1e491f51c22b14d3c6e469419}{get\_velX}}()\ \{\ \textcolor{keywordflow}{return}\ velX;\ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{classlander_a3de80ca1b612809e9648f20832ddb42e}{get\_velY}}()\ \{\ \textcolor{keywordflow}{return}\ velY;\ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classlander_affbc4ff81a141ccc9d6900ec5bc72d9d}{get\_score}}()\ \{\ \textcolor{keywordflow}{return}\ score;\ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classlander_a4fbf7453cae03e0a8dae22b0da3daefa}{get\_landed}}()\ \{\ \textcolor{keywordflow}{return}\ landed;\ \}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classlander_a170747be106811bdfe449a23298cf93e}{get\_fuel}}();}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classlander_a0afe0e2560c5014efd46eb45750aebe9}{reset\_state}}();}
+\DoxyCodeLine{00056\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{float}\ level;}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{int}\ score;}
+\DoxyCodeLine{00059\ \ \ \ \ QGraphicsPixmapItem\ *eagle;}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{int}\ fuel;}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{float}\ velX,\ velY,\ rot;}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{bool}\ engine;}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{bool}\ landed;}
+\DoxyCodeLine{00064\ \};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ LANDER\_H}}
+
+\end{DoxyCode}

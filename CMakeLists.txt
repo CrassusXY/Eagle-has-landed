@@ -14,6 +14,11 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS SerialPort)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Charts)
 
+
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS LinguistTools REQUIRED)
+qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} quickt_en.ts)
+#qt_create_translation(QM_FILES english.ts)
+
 set(PROJECT_SOURCES
         lander.cpp
         lander.h
@@ -28,6 +33,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(WDS
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        ${QM_FILES}
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET WDS APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -50,6 +56,7 @@ endif()
 target_link_libraries(WDS PRIVATE Qt${QT_VERSION_MAJOR}::Charts)
 target_link_libraries(WDS PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_link_libraries(WDS PRIVATE Qt${QT_VERSION_MAJOR}::SerialPort)
+
 
 set_target_properties(WDS PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

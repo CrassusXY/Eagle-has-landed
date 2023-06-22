@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['controller_0',['controller',['../class_main_window.html#a180ef3a128944edb91733231b5fb1f47',1,'MainWindow']]],
-  ['controller_5fdata_1',['controller_data',['../class_main_window.html#af1ff0a11188628fa1714af1751580b4b',1,'MainWindow']]]
+  ['axisx_0',['axisX',['../class_main_window.html#a98c7b4e6265531bd8f85742d915c55f4',1,'MainWindow']]],
+  ['axisxindex_1',['axisXindex',['../class_main_window.html#a231e1410438d3d6ac5eda52903117251',1,'MainWindow']]],
+  ['axisy_2',['axisY',['../class_main_window.html#a06c28099629af583342bd6be9716ccf3',1,'MainWindow']]]
 ];

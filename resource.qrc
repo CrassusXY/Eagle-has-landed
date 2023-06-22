@@ -13,5 +13,8 @@
         <file>pic/crashed.png</file>
         <file>pic/landed.png</file>
     </qresource>
-    <qresource prefix="/"/>
+    <qresource prefix="/">
+        <file>quickt_en.qm</file>
+        <file>quickt_pl.qm</file>
+    </qresource>
 </RCC>

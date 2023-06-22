@@ -17,16 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
     //Ui setup
     ui->setupUi(this);
     ui->stackedWidget->setCurrentWidget(ui->page_3);
-    setWindowTitle("Orzeł wylądował");
+    setWindowTitle(tr("Orzeł wylądował"));
     setWindowIcon(QIcon(":/new/prefix1/pic/icon.png"));
-
-
-    //Serial printer setup
-//    ui->serialPortPrinter->viewport()->setAutoFillBackground(false);
-//    ui->serialPortPrinter->setTextColor( QColor( "green" ) );
-//    ui->serialPortPrinter->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-//    ui->serialPortPrinter->setFrameStyle(QFrame::NoFrame);
-//    ui->serialPortPrinter->hide();
 
     //Scene setup
     scene = new QGraphicsScene(ui->page_4);
@@ -36,29 +28,26 @@ MainWindow::MainWindow(QWidget *parent)
     game_start = false;
     ui->VVelLabel->setText(QString::number(eagle.get_velY(), 'd', 2));
     ui->HVelLabel->setText(QString::number(eagle.get_velX(), 'd', 2));
+    ui->ScoreLabel->setText(QString::number(eagle.get_score(), 'd', 0));
 
     ui->EngineStatus->setPixmap(QPixmap(":/new/prefix1/pic/redled.png").scaled(15,15,Qt::KeepAspectRatio));
     ConnectControler();
 
+    //Plot setup
     series = new QSplineSeries();
     for (int i = 0; i < 100; ++i) {
         series->append(i*DT, 0);
     }
     series->setColor(Qt::green);
-
     chart = new QChart();
     chart->legend()->hide();
     chart->addSeries(series);
     chart->createDefaultAxes();
     chart->setBackgroundBrush((QBrush(QColor("transparent"))));
-
     chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
     layout = new QVBoxLayout(ui->horizontalFrame);
     layout->addWidget(chartView);
-
-    //chartView->setParent(ui->horizontalFrame);
-
     axisXindex = 0;
     axisY = new QValueAxis;
     axisY->setRange(-90, 90);
@@ -142,21 +131,23 @@ void MainWindow::read_Port()
 
         // Process the packet if one is ready
         if (data_ready) {
-            //qDebug() << "Paczka: "  << controller_data;
-            //ui->serialPortPrinter->append(controller_data);
             if (controller_data.at(2) == '1') {
-                //ui->serialPortPrinter->append("Pauza!\n");
-                on_menuButton_clicked();  
+                if(eagle.get_landed()) {
+                    scene = new QGraphicsScene(ui->page_4);
+                    eagle.reset_state();
+                    scene->addItem(eagle.get_eagle());
+                    ui->viewer->setScene(scene);
+                }
+                else
+                    on_menuButton_clicked();
             }
             if (controller_data.at(4) == '1' && eagle.get_fuel() > 0) {
-                //ui->serialPortPrinter->append("Silnik włączony!\n");
                 on_startButton_clicked();
-
-                //ui->EngineStatus->setPixmap(QPixmap(":/new/prefix1/pic/greenled.png").scaled(15,15,Qt::KeepAspectRatio));
 
                 if(!eagle.get_engine()) {
                     eagle.set_engine(true);
                     scene->removeItem(eagle.get_eagle());
+                    ui->EngineStatus->setPixmap(QPixmap(":/new/prefix1/pic/greenled.png").scaled(15,15,Qt::KeepAspectRatio));
                     eagle.set_PixMap(":/new/prefix1/pic/EngineOn1.png");
                     scene->addItem(eagle.get_eagle());
                 }
@@ -173,49 +164,61 @@ void MainWindow::read_Port()
             }
 
             // Parse the remaining characters as a float and use it to rotate the lander sprite
-            float r = controller_data.mid(6).toFloat();
+            float r = -controller_data.mid(6).toFloat();
             if(r > 90)
                 r = 90;
             else if(r < -90)
                 r = -90;
 
-            if(game_start) {
-                eagle.set_rot(-r);
-                eagle.tick();
-                ui->VVelLabel->setText(QString::number(eagle.get_velY(), 'd', 2));
-                ui->HVelLabel->setText(QString::number(eagle.get_velX(), 'd', 2));
-                ui->HeightBar->setValue(480 - eagle.get_eagle()->pos().y());
-                ui->FuelBar->setValue(eagle.get_fuel());
-                if(eagle.get_landed()) {
-                    QPointF pos = eagle.get_eagle()->pos();
-                    pos.setX(pos.x()-180);
-                    pos.setY(pos.y()-50);
-                    if(eagle.get_velY() < 20 && eagle.get_velX() < 20) {
-                        message = new QGraphicsPixmapItem(QPixmap(":/new/prefix1/pic/landed.png"));
-                        pos.setX(pos.x()+15);
-                    }
-                    else {
-                        message = new QGraphicsPixmapItem(QPixmap(":/new/prefix1/pic/crashed.png"));
-                    }
-                    message->setPos(pos);
-                    scene->addItem(message);
-                }
-                qDebug()  << eagle.get_velY() << "\n";
-                //qDebug()  << r << ", " <<((cos(r * M_PI / 180) * ENGINE_ACC ) - MOON_ACC) << ", " << sin(r*M_PI/180) << "\n";
-            }
-
-            axisXindex++;
-
-            series->remove(0);
-            series->append((axisXindex + 100)*DT, r);
-            axisX = new QValueAxis;
-            axisX->setRange(axisXindex*DT, (axisXindex + 100)*DT);
-            chartView->chart()->setAxisX(axisX, series);
-
+            game(r);
             controller_data = "";
             data_ready = false;
         }
     }
+}
+
+/**
+ * @brief Handles the game logic.
+ *
+ * This function is called periodically to update the game state based on the input received and perform necessary calculations and UI updates.
+ *
+ * @param r The rotation value.
+ */
+void MainWindow::game(const float &r)
+{
+    if(game_start) {
+        eagle.set_rot(-r);
+        eagle.tick();
+        ui->VVelLabel->setText(QString::number(eagle.get_velY(), 'd', 2));
+        ui->HVelLabel->setText(QString::number(eagle.get_velX(), 'd', 2));
+        ui->ScoreLabel->setText(QString::number(eagle.get_score(), 'd', 0));
+        ui->HeightBar->setValue(480 - eagle.get_eagle()->pos().y());
+        ui->FuelBar->setValue(eagle.get_fuel());
+        if(eagle.get_landed()) {
+            QPointF pos = eagle.get_eagle()->pos();
+            pos.setX(pos.x()-180);
+            pos.setY(pos.y()-50);
+            if(eagle.get_velY() < 20 && eagle.get_velX() < 20) {
+                message = new QGraphicsPixmapItem(QPixmap(":/new/prefix1/pic/landed.png"));
+                pos.setX(pos.x()+15);
+            }
+            else {
+                message = new QGraphicsPixmapItem(QPixmap(":/new/prefix1/pic/crashed.png"));
+            }
+            message->setPos(pos);
+            scene->addItem(message);
+            game_start = false;
+        }
+        qDebug()  << eagle.get_velY() << "\n";
+    }
+
+    axisXindex++;
+
+    series->remove(0);
+    series->append((axisXindex + 100)*DT, r);
+    axisX = new QValueAxis;
+    axisX->setRange(axisXindex*DT, (axisXindex + 100)*DT);
+    chartView->chart()->setAxisX(axisX, series);
 }
 
 /**
@@ -245,10 +248,14 @@ void MainWindow::on_startButton_clicked()
 }
 
 /**
- * @brief Handles the connectButton click event.
+ * @brief Slot for handling the click event of the "connectButton".
  *
- * This function attempts to connect the controller to the serial port and sets up the readyRead signal.
- * If the controller is already connected, it does nothing.
+ * This slot is triggered when the "connectButton" is clicked.
+ * It checks if the controller port is already open. If it is open,
+ * it outputs a debug message indicating that it is already connected and displays the controller's error.
+ * If the port is not open, it calls the ConnectControler() function
+ * to establish the connection and connects the readyRead() signal of the controller to the read_Port()
+ * slot of the MainWindow.
  */
 void MainWindow::on_connectButton_clicked()
 {
@@ -263,9 +270,10 @@ void MainWindow::on_connectButton_clicked()
 }
 
 /**
- * @brief Handles the devButton click event.
+ * @brief Slot for handling the click event of the "devButton".
  *
- * This function sets the background image to the game background, switches to the game screen, and shows the serial printer.
+ * This slot is triggered when the "devButton" is clicked.
+ * It sets the background image to the game background and switches to the corresponding page in the stacked widget.
  */
 void MainWindow::on_devButton_clicked()
 {
@@ -284,30 +292,46 @@ void MainWindow::on_exitButton_clicked()
 }
 
 /**
- * @brief Handles the menuButton click event.
+ * @brief Slot for handling the click event of the "Menu" button.
  *
- * This function sets the background image to the main menu background and switches to the main menu screen.
- * It also hides the serial printer.
+ * This slot is triggered when the "Menu" button is clicked.
+ * It sets the style sheet of the central widget to display a background image,
+ * switches the stacked widget to display the third page, and sets the game_start flag to false.
  */
 void MainWindow::on_menuButton_clicked()
 {
     ui->centralwidget->setStyleSheet("border-image: url(:/new/prefix1/pic/background.png);");
     ui->stackedWidget->setCurrentWidget(ui->page_3);
-    //ui->serialPortPrinter->hide();
     game_start = false;
 }
 
 /**
- * @brief Handles the menuButton2 click event.
+ * @brief Slot for handling the click event of the "Menu" button.
  *
- * This function sets the background image to the main menu background and switches to the main menu screen.
- * It also hides the serial printer.
+ * This slot is triggered when the "Menu" button is clicked.
+ * It sets the style sheet of the central widget to display a background image,
+ * switches the stacked widget to display the third page, and sets the game_start flag to false.
  */
 void MainWindow::on_menuButton_2_clicked()
 {
     ui->centralwidget->setStyleSheet("border-image: url(:/new/prefix1/pic/background.png);");
     ui->stackedWidget->setCurrentWidget(ui->page_3);
-    //ui->serialPortPrinter->hide();
     game_start = false;
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    QTranslator *translator = new QTranslator;
+    if(!translated){
+        translator->load(":/quickt_en.qm");
+        translated = true;
+    }
+    else{
+        translator->load(":/quickt_pl.qm");
+        translated = false;
+    }
+    QApplication::instance()->installTranslator(translator);
+    ui->retranslateUi(this);
 }
 

@@ -1,0 +1,259 @@
+\hypertarget{classlander}{}\doxysection{lander Class Reference}
+\label{classlander}\index{lander@{lander}}
+
+
+{\ttfamily \#include $<$lander.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classlander_ad90447438348cd18fc11a1e5c535bcc7}{lander}} ()
+\begin{DoxyCompactList}\small\item\em Constructor for the Lander class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classlander_a48a0364a45980dadc376c40304f56cf1}{set\+\_\+\+Pix\+Map}} (const QString tmp)
+\begin{DoxyCompactList}\small\item\em Sets the pixmap of the lander. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classlander_a29aa484e9b68aacac2168a94f66b5155}{tick}} ()
+\begin{DoxyCompactList}\small\item\em Updates the state of the lander. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classlander_a64c7cf72984846f6429d81632431b78d}{render}} ()
+\item 
+QGraphics\+Pixmap\+Item $\ast$ \mbox{\hyperlink{classlander_abfe6a195e0596d7c89a66808a417bd68}{get\+\_\+eagle}} ()
+\begin{DoxyCompactList}\small\item\em Returns a pointer to the lander\textquotesingle{}s QGraphics\+Pixmap\+Item. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classlander_a8c2c64df94531652c90bf5876a158bf3}{set\+\_\+rot}} (float \+\_\+rot)
+\begin{DoxyCompactList}\small\item\em Sets the rotation of the lander. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classlander_af89cfdde4cc46ea7e4f8398139a5b7d0}{set\+\_\+engine}} (bool \+\_\+engine)
+\begin{DoxyCompactList}\small\item\em Sets the engine status of the lander. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classlander_a825c58d4bb641aed62ca0f96401f9cd0}{get\+\_\+engine}} ()
+\begin{DoxyCompactList}\small\item\em Returns the engine status of the lander. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classlander_a6704caf7a3a0c77d646477ad938c1dee}{set\+\_\+score}} ()
+\begin{DoxyCompactList}\small\item\em Updates the score based on the current level and fuel. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classlander_a1a8e8ba1e491f51c22b14d3c6e469419}{get\+\_\+velX}} ()
+\begin{DoxyCompactList}\small\item\em Returns the horizontal velocity of the lander. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classlander_a3de80ca1b612809e9648f20832ddb42e}{get\+\_\+velY}} ()
+\begin{DoxyCompactList}\small\item\em Returns the vertical velocity of the lander. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classlander_affbc4ff81a141ccc9d6900ec5bc72d9d}{get\+\_\+score}} ()
+\begin{DoxyCompactList}\small\item\em Returns the current score. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classlander_a4fbf7453cae03e0a8dae22b0da3daefa}{get\+\_\+landed}} ()
+\begin{DoxyCompactList}\small\item\em Checks if the lander has landed. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classlander_a170747be106811bdfe449a23298cf93e}{get\+\_\+fuel}} ()
+\begin{DoxyCompactList}\small\item\em Returns the fuel level of the lander. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classlander_a0afe0e2560c5014efd46eb45750aebe9}{reset\+\_\+state}} ()
+\begin{DoxyCompactList}\small\item\em Resets the state of the lander. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classlander_a36f3cafd3e02298f5498f9496b1b3a96}{count}} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classlander_ad90447438348cd18fc11a1e5c535bcc7}\label{classlander_ad90447438348cd18fc11a1e5c535bcc7}} 
+\index{lander@{lander}!lander@{lander}}
+\index{lander@{lander}!lander@{lander}}
+\doxysubsubsection{\texorpdfstring{lander()}{lander()}}
+{\footnotesize\ttfamily lander\+::lander (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Constructor for the Lander class. 
+
+This constructor initializes the Lander object by creating a QGraphics\+Pixmap\+Item representing the lander sprite and setting its initial properties such as scale, transform origin point, score, velocity in the X and Y directions, fuel level, landing status, and level. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classlander_abfe6a195e0596d7c89a66808a417bd68}\label{classlander_abfe6a195e0596d7c89a66808a417bd68}} 
+\index{lander@{lander}!get\_eagle@{get\_eagle}}
+\index{get\_eagle@{get\_eagle}!lander@{lander}}
+\doxysubsubsection{\texorpdfstring{get\_eagle()}{get\_eagle()}}
+{\footnotesize\ttfamily QGraphics\+Pixmap\+Item $\ast$ lander\+::get\+\_\+eagle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns a pointer to the lander\textquotesingle{}s QGraphics\+Pixmap\+Item. 
+
+This function returns a pointer to the QGraphics\+Pixmap\+Item representing the lander\textquotesingle{}s sprite.
+
+\begin{DoxyReturn}{Returns}
+A pointer to the lander\textquotesingle{}s QGraphics\+Pixmap\+Item. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classlander_a825c58d4bb641aed62ca0f96401f9cd0}\label{classlander_a825c58d4bb641aed62ca0f96401f9cd0}} 
+\index{lander@{lander}!get\_engine@{get\_engine}}
+\index{get\_engine@{get\_engine}!lander@{lander}}
+\doxysubsubsection{\texorpdfstring{get\_engine()}{get\_engine()}}
+{\footnotesize\ttfamily bool lander\+::get\+\_\+engine (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the engine status of the lander. 
+
+This function returns the current engine status of the lander.
+
+\begin{DoxyReturn}{Returns}
+The engine status of the lander. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classlander_a170747be106811bdfe449a23298cf93e}\label{classlander_a170747be106811bdfe449a23298cf93e}} 
+\index{lander@{lander}!get\_fuel@{get\_fuel}}
+\index{get\_fuel@{get\_fuel}!lander@{lander}}
+\doxysubsubsection{\texorpdfstring{get\_fuel()}{get\_fuel()}}
+{\footnotesize\ttfamily int lander\+::get\+\_\+fuel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the fuel level of the lander. 
+
+This function returns the current fuel level of the lander.
+
+\begin{DoxyReturn}{Returns}
+The fuel level of the lander. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classlander_a4fbf7453cae03e0a8dae22b0da3daefa}\label{classlander_a4fbf7453cae03e0a8dae22b0da3daefa}} 
+\index{lander@{lander}!get\_landed@{get\_landed}}
+\index{get\_landed@{get\_landed}!lander@{lander}}
+\doxysubsubsection{\texorpdfstring{get\_landed()}{get\_landed()}}
+{\footnotesize\ttfamily bool lander\+::get\+\_\+landed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if the lander has landed. 
+
+\begin{DoxyReturn}{Returns}
+True if the lander has landed, False otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classlander_affbc4ff81a141ccc9d6900ec5bc72d9d}\label{classlander_affbc4ff81a141ccc9d6900ec5bc72d9d}} 
+\index{lander@{lander}!get\_score@{get\_score}}
+\index{get\_score@{get\_score}!lander@{lander}}
+\doxysubsubsection{\texorpdfstring{get\_score()}{get\_score()}}
+{\footnotesize\ttfamily int lander\+::get\+\_\+score (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the current score. 
+
+\begin{DoxyReturn}{Returns}
+The score. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classlander_a1a8e8ba1e491f51c22b14d3c6e469419}\label{classlander_a1a8e8ba1e491f51c22b14d3c6e469419}} 
+\index{lander@{lander}!get\_velX@{get\_velX}}
+\index{get\_velX@{get\_velX}!lander@{lander}}
+\doxysubsubsection{\texorpdfstring{get\_velX()}{get\_velX()}}
+{\footnotesize\ttfamily float lander\+::get\+\_\+velX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the horizontal velocity of the lander. 
+
+\begin{DoxyReturn}{Returns}
+The horizontal velocity. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classlander_a3de80ca1b612809e9648f20832ddb42e}\label{classlander_a3de80ca1b612809e9648f20832ddb42e}} 
+\index{lander@{lander}!get\_velY@{get\_velY}}
+\index{get\_velY@{get\_velY}!lander@{lander}}
+\doxysubsubsection{\texorpdfstring{get\_velY()}{get\_velY()}}
+{\footnotesize\ttfamily float lander\+::get\+\_\+velY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the vertical velocity of the lander. 
+
+\begin{DoxyReturn}{Returns}
+The vertical velocity. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classlander_a64c7cf72984846f6429d81632431b78d}\label{classlander_a64c7cf72984846f6429d81632431b78d}} 
+\index{lander@{lander}!render@{render}}
+\index{render@{render}!lander@{lander}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily void lander\+::render (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classlander_a0afe0e2560c5014efd46eb45750aebe9}\label{classlander_a0afe0e2560c5014efd46eb45750aebe9}} 
+\index{lander@{lander}!reset\_state@{reset\_state}}
+\index{reset\_state@{reset\_state}!lander@{lander}}
+\doxysubsubsection{\texorpdfstring{reset\_state()}{reset\_state()}}
+{\footnotesize\ttfamily void lander\+::reset\+\_\+state (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Resets the state of the lander. 
+
+This function resets the state of the lander by updating its properties. It increases the level by 0.\+5, creates a new QGraphics\+Pixmap\+Item representing the lander sprite with the initial properties, updates the velocity in the X and Y directions based on the level, resets the fuel level, and sets the landing status to false. \mbox{\Hypertarget{classlander_af89cfdde4cc46ea7e4f8398139a5b7d0}\label{classlander_af89cfdde4cc46ea7e4f8398139a5b7d0}} 
+\index{lander@{lander}!set\_engine@{set\_engine}}
+\index{set\_engine@{set\_engine}!lander@{lander}}
+\doxysubsubsection{\texorpdfstring{set\_engine()}{set\_engine()}}
+{\footnotesize\ttfamily void lander\+::set\+\_\+engine (\begin{DoxyParamCaption}\item[{bool}]{\+\_\+engine }\end{DoxyParamCaption})}
+
+
+
+Sets the engine status of the lander. 
+
+This function sets the engine status of the lander to the specified value.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+engine} & The engine status to set. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classlander_a48a0364a45980dadc376c40304f56cf1}\label{classlander_a48a0364a45980dadc376c40304f56cf1}} 
+\index{lander@{lander}!set\_PixMap@{set\_PixMap}}
+\index{set\_PixMap@{set\_PixMap}!lander@{lander}}
+\doxysubsubsection{\texorpdfstring{set\_PixMap()}{set\_PixMap()}}
+{\footnotesize\ttfamily void lander\+::set\+\_\+\+Pix\+Map (\begin{DoxyParamCaption}\item[{const QString}]{tmp }\end{DoxyParamCaption})}
+
+
+
+Sets the pixmap of the lander. 
+
+This function sets the pixmap of the lander by creating a new QGraphics\+Pixmap\+Item with the specified pixmap and updating its properties such as scale, transform origin point, position, and rotation. If the lander has already landed, the function returns early without making any changes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tmp} & The path to the new pixmap. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classlander_a8c2c64df94531652c90bf5876a158bf3}\label{classlander_a8c2c64df94531652c90bf5876a158bf3}} 
+\index{lander@{lander}!set\_rot@{set\_rot}}
+\index{set\_rot@{set\_rot}!lander@{lander}}
+\doxysubsubsection{\texorpdfstring{set\_rot()}{set\_rot()}}
+{\footnotesize\ttfamily void lander\+::set\+\_\+rot (\begin{DoxyParamCaption}\item[{float}]{\+\_\+rot }\end{DoxyParamCaption})}
+
+
+
+Sets the rotation of the lander. 
+
+This function sets the rotation of the lander to the specified rotation value.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+rot} & The rotation value to set. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classlander_a6704caf7a3a0c77d646477ad938c1dee}\label{classlander_a6704caf7a3a0c77d646477ad938c1dee}} 
+\index{lander@{lander}!set\_score@{set\_score}}
+\index{set\_score@{set\_score}!lander@{lander}}
+\doxysubsubsection{\texorpdfstring{set\_score()}{set\_score()}}
+{\footnotesize\ttfamily void lander\+::set\+\_\+score (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Updates the score based on the current level and fuel. 
+
+This function calculates the score by multiplying the level with the remaining fuel and adds it to the current score. \mbox{\Hypertarget{classlander_a29aa484e9b68aacac2168a94f66b5155}\label{classlander_a29aa484e9b68aacac2168a94f66b5155}} 
+\index{lander@{lander}!tick@{tick}}
+\index{tick@{tick}!lander@{lander}}
+\doxysubsubsection{\texorpdfstring{tick()}{tick()}}
+{\footnotesize\ttfamily void lander\+::tick (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Updates the state of the lander. 
+
+This function updates the state of the lander based on its current position, velocity, rotation, engine status, and fuel level. It adjusts the velocity in the X and Y directions based on the engine status and applies gravity when the engine is off or fuel is depleted. The lander\textquotesingle{}s position is updated accordingly, and if it lands successfully, the score is set, the landed status is updated, and the lander\textquotesingle{}s pixmap is set to the default lander image. 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classlander_a36f3cafd3e02298f5498f9496b1b3a96}\label{classlander_a36f3cafd3e02298f5498f9496b1b3a96}} 
+\index{lander@{lander}!count@{count}}
+\index{count@{count}!lander@{lander}}
+\doxysubsubsection{\texorpdfstring{count}{count}}
+{\footnotesize\ttfamily int lander\+::count = 0}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{lander_8h}{lander.\+h}}\item 
+\mbox{\hyperlink{lander_8cpp}{lander.\+cpp}}\end{DoxyCompactItemize}

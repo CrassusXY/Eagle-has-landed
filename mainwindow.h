@@ -36,15 +36,17 @@ private slots:
     void on_devButton_clicked();
     void on_exitButton_clicked();
     void on_menuButton_clicked();
+    void on_menuButton_2_clicked();
 
     void ConnectControler();
     void read_Port();
     void end_Connection();
+    void game(const float &r);
 
-
-    void on_menuButton_2_clicked();
+    void on_pushButton_clicked();
 
 private:
+    bool translated = false;
     bool game_start;
     lander eagle;
     Ui::MainWindow *ui;
